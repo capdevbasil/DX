@@ -2,8 +2,7 @@
   "use strict";
 
   var isDrawing, lastPoint;
-  var container = document.getElementById("js-container"),
-    canvas = document.getElementById("js-canvas"),
+  var canvas = document.getElementById("js-canvas"),
     canvasWidth = canvas.width,
     canvasHeight = canvas.height,
     ctx = canvas.getContext("2d"),
@@ -11,10 +10,12 @@
     brush = new Image();
 
   // base64 Workaround because Same-Origin-Policy
-  image.src = "https://drive.google.com/file/d/1XEkuUSGi3jt4y9F-1NGshe1zfJiZu9jq/view?usp=sharing";
+  image.src =
+    "https://github.com/capdevbasil/DX/blob/main/html/mwFzF.png?raw=true";
   image.onload = function () {
-    ctx.drawImage(image, 0, 0);
-    // Show the form when Image is loaded.
+    createImageBitmap(image).then(function (bitmap) {
+      ctx.drawImage(bitmap, 0, 0);
+    }); // Show the form when Image is loaded.
     document.querySelectorAll(".form")[0].style.visibility = "visible";
   };
   brush.src =
@@ -82,6 +83,7 @@
   function handlePercentage(filledInPixels) {
     filledInPixels = filledInPixels || 0;
     console.log(filledInPixels + "%");
+
     if (filledInPixels > 50) {
       canvas.parentNode.removeChild(canvas);
     }
